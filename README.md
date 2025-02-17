@@ -51,7 +51,6 @@
 
 <h1><a href="https://example.com">12. 免責事項</a></h1>
 
-### 3.1 Galacticインストール
 
 
 
