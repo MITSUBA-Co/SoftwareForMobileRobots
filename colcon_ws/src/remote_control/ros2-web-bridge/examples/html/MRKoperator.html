@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>MRK operator</title>
+<script src="./roslib.js"></script>
+<script src="./nipplejs.js"></script>
+<link href="./style.css" rel="stylesheet" type="text/css">
+<script>
+  var ros = new ROSLIB.Ros(); //tailscale未使用の場合はこのまま
+  //var ros = new ROSLIB.Ros({url:'ws://100.100.100.100:9090'}); //tailscaleのipアドレス直打ち
+  //var ros = new ROSLIB.Ros({url:'ws://PCname.tailaaaaaa.aa.net:9090'}); //PC名+tailscaleのMagicDNS名を使用
+
+  ros.on('error', function(error) {
+    console.log(error);
+  });
+
+  ros.on('connection', function() {
+    console.log('Connection made!');
+  });
+
+  ros.on('close', function() {
+    console.log('Connection closed.');
+  });
+
+  ros.connect('ws://PCname.local:9090'); //"PCname"にロボット側PC名を入れる
+
+
+  var joy_pub = new ROSLIB.Topic({
+    ros: ros,
+    name: '/cmd_vel',
+    messageType: 'geometry_msgs/Twist'
+  });
+
+  var cmd_vel_camera = new ROSLIB.Topic({
+    ros: ros,
+    name: '/cmd_vel_camera',
+    messageType: 'geometry_msgs/Twist'
+  });
+
+  var camera_change = new ROSLIB.Topic({
+    ros: ros,
+    name: '/panorama_flag',
+    messageType: 'std_msgs/String'
+  });
+
+  function clickZoomIn() {
+    joy_twist_camera.linear.z = -0.5;
+    cmd_vel_camera.publish(joy_twist_camera);
+    joy_twist_camera.linear.z = 0.0;
+  }
+
+  function clickZoomOut() {
+    joy_twist_camera.linear.z = 0.5;
+    cmd_vel_camera.publish(joy_twist_camera);
+    joy_twist_camera.linear.z = 0.0;
+  }
+
+  function clickSpeedUp() {
+    if (vel < 0.4) {
+      vel += 0.1;
+    } else {
+      vel = 0.4;
+    }
+    updateSpeedText();
+  }
+
+  function clickSpeedDown() {
+    if (vel >= 0.2) {
+      vel -= 0.1;
+    } else {
+      vel = 0.1;
+    }
+    updateSpeedText();
+  }
+
+  function updateSpeedText() {
+    var speedText = "";
+    if (vel < 0.2) {
+      speedText = "すごくゆっくり";
+    } else if (vel < 0.3) {
+      speedText = "ゆっくり";
+    } else if (vel < 0.4) {
+      speedText = "はやい";
+    } else {
+      speedText = "すごくはやい";
+    }
+    document.getElementById("speed-text").innerText = speedText;
+  }
+
+  function clickChangeImage() {
+    var now = new Date();
+    var test = now;
+    camera_change.publish(test);
+  }
+
+  function LT() {
+    joy_twist_camera.linear.x = 0.5;
+    joy_twist_camera.angular.z = 1.0;
+    cmd_vel_camera.publish(joy_twist_camera);
+    joy_twist_camera.linear.x = 0.0;
+    joy_twist_camera.angular.z = 0.0;
+  }
+  
+  function MT() {
+    joy_twist_camera.linear.x = 0.5;
+    cmd_vel_camera.publish(joy_twist_camera);
+    joy_twist_camera.linear.x = 0.0;
+  }
+  
+  function RT() {
+    joy_twist_camera.linear.x = 0.5;
+    joy_twist_camera.angular.z = -1.0;
+    cmd_vel_camera.publish(joy_twist_camera);
+    joy_twist_camera.linear.x = 0.0;
+    joy_twist_camera.angular.z = 0.0;
+  }
+  
+  function LM() {
+    joy_twist_camera.angular.z = 1.0;
+    cmd_vel_camera.publish(joy_twist_camera);
+    joy_twist_camera.angular.z = 0.0;
+  }
+  
+  function MM() {
+    cmd_vel_camera.publish(joy_twist_camera);
+  }
+  
+  function RM() {
+    joy_twist_camera.angular.z = -1.0;
+    cmd_vel_camera.publish(joy_twist_camera);
+    joy_twist_camera.angular.z = 0.0;
+  }
+  
+  function LD() {
+    joy_twist_camera.linear.x = -0.5;
+    joy_twist_camera.angular.z = -1.0;
+    cmd_vel_camera.publish(joy_twist_camera);
+    joy_twist_camera.linear.x = 0.0;
+    joy_twist_camera.angular.z = 0.0;
+  }
+  
+  function MD() {
+    joy_twist_camera.linear.x = -0.5;
+    cmd_vel_camera.publish(joy_twist_camera);
+    joy_twist_camera.linear.x = 0.0;
+  }
+  
+  function RD() {
+    joy_twist_camera.linear.x = -0.5;
+    joy_twist_camera.angular.z = 1.0;
+    cmd_vel_camera.publish(joy_twist_camera);
+    joy_twist_camera.linear.x = 0.0;
+    joy_twist_camera.angular.z = 0.0;
+  }
+
+  let nipple_unlock = true;
+  function click_change() {
+    nipple_unlock = localStorage.getItem('nipple_mode');
+    if (nipple_unlock == "true") {
+      localStorage.setItem('nipple_mode', false);
+    } else {
+      localStorage.setItem('nipple_mode', true);
+    }
+    window.location.reload();
+  }
+
+  let joystickX = 0.0;
+  let joystickY = 0.0;
+  let radian = 0.0;
+  let distance = 0.0;
+  let joy_twist = {
+    linear: { x: "0", y: "0", z: "0" },
+    angular: { x: "0", y: "0", z: "0" }
+  };
+  let vel = 0.1;
+　let keys = { w: false, a: false, s: false, d: false };
+
+  var joystick;
+  window.onload = function() {
+    joystick = nipplejs.create({
+      zone: document.getElementById('joystick'),
+      mode: 'static',
+      position: { left: '50%', top: '50%' },
+      color: 'green',
+      size: 200
+    });
+
+    joystick.on('start end', function(evt, data) {
+      radian = 0.0;
+      distance = 0.0;
+      joystickX = 0.0;
+      joystickY = 0.0;
+      joy_twist.linear.x = joystickY;
+      joy_twist.angular.z = joystickX;
+      joy_pub.publish(joy_twist);
+      clear_joy();
+    }).on('move', function(evt, data) {
+      radian = data['angle']['radian'];
+      distance = data['distance'];
+      joystickX = -1 * Math.max(Math.min(Math.cos(radian) / 75 * distance, 1), -1);
+      joystickY = Math.max(Math.min(Math.sin(radian) / 75 * distance, 1), -1);
+      joy_twist.linear.x = vel * joystickY;
+      joy_twist.angular.z = 3 * vel * joystickX;
+      if ((joystickY < -0.01 || joystickY > 0.01) || (joystickX < -0.01 ||joystickX > 0.01)) {
+        joy_pub.publish(joy_twist);
+      }
+      joystickX = Math.round(3 * vel * joystickX * 100) / 100;
+      joystickY = Math.round(vel * joystickY * 100) / 100;
+      set_joy();
+    });
+
+ // 初期状態で速度テキストを設定
+    updateSpeedText();
+
+    // ゲームパッドの入力を監視
+    window.addEventListener("gamepadconnected", function(e) {
+      console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
+        e.gamepad.index, e.gamepad.id,
+        e.gamepad.buttons.length, e.gamepad.axes.length);
+      gamepadLoop();
+    });
+
+　　// キーボード入力を監視
+    window.addEventListener('keydown', function(event) {
+      if (event.key === 'q') {
+        clickSpeedUp();
+      }
+      if (event.key === 'e') {
+        clickSpeedDown();
+      }
+      if (event.key === 'r') {
+        clickChangeImage();
+      }
+      if (event.key === 't') {
+        clickZoomIn();
+      }
+      if (event.key === 'g') {
+        clickZoomOut();
+      }
+      if (event.key === 'y') {
+        LT();
+      }
+      if (event.key === 'u') {
+        MT();
+      }
+      if (event.key === 'i') {
+        RT();
+      }
+      if (event.key === 'h') {
+        LM();
+      }
+      if (event.key === 'j') {
+        MM();
+      }
+      if (event.key === 'k') {
+        RM();
+      }
+      if (event.key === 'b') {
+        LD();
+      }
+      if (event.key === 'n') {
+        MD();
+      }
+      if (event.key === 'm') {
+        RD();
+      }
+    　if (event.key in keys) {
+      　  keys[event.key] = true;
+        　updateMovement();
+    　}
+    });
+    
+    window.addEventListener('keyup', function(event) {
+      if (event.key in keys) {
+        keys[event.key] = false;
+        updateMovement();
+      }
+    });
+    
+  };
+
+function updateMovement() {
+  // すべてのキーが離されている場合は停止
+  if (!keys.w && !keys.a && !keys.s && !keys.d) {
+    joy_twist.linear.x = 0;
+    joy_twist.angular.z = 0;
+    joy_pub.publish(joy_twist);
+    clear_joy();
+    return;
+  }
+
+  // デフォルトの値
+  joy_twist.linear.x = 0;
+  joy_twist.angular.z = 0;
+
+  // wキーとsキーの同時押し対応
+  if (keys.w && !keys.s) {
+    joy_twist.linear.x = 1 * vel;
+  } else if (keys.s && !keys.w) {
+    joy_twist.linear.x = -1 * vel;
+  }
+
+  // aキーとdキーの同時押し対応
+  if (keys.a && !keys.d) {
+    joy_twist.angular.z = 1 * 3 * vel;
+  } else if (keys.d && !keys.a) {
+    joy_twist.angular.z = -1 * 3 * vel;
+  }
+
+  // 斜め移動 (wa, wd, sa, sd)
+  if (keys.w && keys.a) {
+    joy_twist.linear.x = 1 * vel;
+    joy_twist.angular.z = 1 * 3 * vel;
+  } else if (keys.w && keys.d) {
+    joy_twist.linear.x = 1 * vel;
+    joy_twist.angular.z = -1 * 3 * vel;
+  } else if (keys.s && keys.a) {
+    joy_twist.linear.x = -1 * vel;
+    joy_twist.angular.z = 1 * 3 * vel;
+  } else if (keys.s && keys.d) {
+    joy_twist.linear.x = -1 * vel;
+    joy_twist.angular.z = -1 * 3 * vel;
+  }
+
+  // 更新されたjoy_twistをパブリッシュ
+  joy_pub.publish(joy_twist);
+  set_joy();
+}
+
+
+
+
+  let timer1;
+  proc1 = function joy() {
+    joy_pub.publish(joy_twist);
+  }
+  function set_joy() {
+    if (timer1) {
+      clear_joy();
+    }
+    timer1 = setInterval(proc1, 10);
+  }
+  function clear_joy() {
+    clearInterval(timer1);
+  }
+
+  let joy_twist_camera = {
+    linear: { x: "0", y: "0", z: "0" },
+    angular: { x: "0", y: "0", z: "0" }
+  };
+let lastButtonState = {
+  a: false,
+  b: false,
+  x: false,
+  y: false,
+  l: false,
+  r: false
+};
+
+function gamepadLoop() {
+  const gamepads = navigator.getGamepads();
+  const gp = gamepads[0];
+
+  if (gp) {
+    // 左スティックの取得
+    const leftStickX = gp.axes[0];
+    const leftStickY = gp.axes[1];
+
+    // 右スティックの取得
+    const rightStickX = gp.axes[2];
+    const rightStickY = -gp.axes[3];
+
+    // ボタンの取得
+    const aButton = gp.buttons[0].pressed;
+    const bButton = gp.buttons[1].pressed;
+    const xButton = gp.buttons[2].pressed;
+    const yButton = gp.buttons[3].pressed;
+    const lButton = gp.buttons[4].pressed;
+    const rButton = gp.buttons[5].pressed;
+
+    // 左スティックの動きによる制御
+    if ((leftStickY < -0.02 || leftStickY > 0.02) || (leftStickX < -0.02 || leftStickX > 0.02)) {
+      joy_twist.linear.x = -1 * vel * leftStickY;
+      joy_twist.angular.z = -1 * 3 * vel * leftStickX;
+      joy_pub.publish(joy_twist);
+    }
+
+    // 右スティックの8方向制御
+    const directionThreshold = 0.5; // 方向判定のしきい値
+    let rightStickDirection = '';
+
+    if (rightStickX > directionThreshold) {
+      if (rightStickY > directionThreshold) rightStickDirection = 'NE'; // 北東
+      else if (rightStickY < -directionThreshold) rightStickDirection = 'SE'; // 南東
+      else rightStickDirection = 'E'; // 東
+    } else if (rightStickX < -directionThreshold) {
+      if (rightStickY > directionThreshold) rightStickDirection = 'NW'; // 北西
+      else if (rightStickY < -directionThreshold) rightStickDirection = 'SW'; // 南西
+      else rightStickDirection = 'W'; // 西
+    } else {
+      if (rightStickY > directionThreshold) rightStickDirection = 'N'; // 北
+      else if (rightStickY < -directionThreshold) rightStickDirection = 'S'; // 南
+      else rightStickDirection = 'Center'; // 中心
+    }
+
+    // 右スティック方向によるアクション
+    switch (rightStickDirection) {
+      case 'N':
+        MT();
+        break;
+      case 'NE':
+        RT();
+        break;
+      case 'E':
+        RM();
+        break;
+      case 'SE':
+        RD();
+        break;
+      case 'S':
+        MD();
+        break;
+      case 'SW':
+        LD();
+        break;
+      case 'W':
+        LM();
+        break;
+      case 'NW':
+        LT();
+        break;
+      case 'Center':
+        break;
+    }
+
+    // ボタンのアクション
+    function handleButton(buttonName, isPressed, action) {
+      if (isPressed && !lastButtonState[buttonName]) {
+        action();
+      }
+      lastButtonState[buttonName] = isPressed;
+    }
+
+    handleButton('a', aButton, clickZoomOut);
+    handleButton('b', bButton, clickChangeImage);
+    handleButton('x', xButton, MM);
+    handleButton('y', yButton, clickZoomIn);
+    handleButton('l', lButton, clickSpeedUp);
+    handleButton('r', rButton, clickSpeedDown);
+  }
+
+  requestAnimationFrame(gamepadLoop);
+}
+
+</script>
+</head>
+
+<body>
+
+<div class="wrapper">
+  <div class="image-container">
+    <script>
+      document.write("<img src='http://" + location.hostname + ":8080/stream?topic=/panorama&quality=70'></img>");
+    </script>
+    <div class="camera-buttons">
+      <img src="arrow_up.png" class="camera-button-top" onclick="MT()">
+      <img src="arrow_up_left.png" class="camera-button-top-left" onclick="LT()">
+      <img src="arrow_up_right.png" class="camera-button-top-right" onclick="RT()">
+      <img src="arrow_down.png" class="camera-button-bottom" onclick="MD()">
+      <img src="arrow_down_left.png" class="camera-button-bottom-left" onclick="LD()">
+      <img src="arrow_down_right.png" class="camera-button-bottom-right" onclick="RD()">
+      <img src="arrow_left.png" class="camera-button-left" onclick="LM()">
+      <img src="arrow_right.png" class="camera-button-right" onclick="RM()">
+    </div>
+  </div>
+  <div class="controls-container">
+    <div class="left-controls">
+      <div class="button-group horizontal">
+        <img src="zoom_in_icon.png" alt="Zoom In" onclick="clickZoomIn()">
+        <img src="zoom_out_icon.png" alt="Zoom Out" onclick="clickZoomOut()">
+      </div>
+      <div class="button-group horizontal">
+        <img id="change-image-button" src="change_image_icon.png" alt="Change Image" onclick="clickChangeImage()">
+        <img src="reset_icon.png" alt="Reset" onclick="MM()">
+      </div>
+    </div>
+    <div class="joystick-container">
+      <div class="joystick-decorator">
+        <div class="triangle triangle-up"></div>
+        <div class="triangle triangle-down"></div>
+        <div class="triangle triangle-left"></div>
+        <div class="triangle triangle-right"></div>
+      </div>
+      <div id="joystick"></div>
+    </div>
+    <div class="speed-control-container">
+      <div id="speed-text"></div>
+      <div class="button-group horizontal">
+        <img src="speed_up_icon.png" alt="Speed Up" onclick="clickSpeedUp()">
+        <img src="speed_down_icon.png" alt="Speed Down" onclick="clickSpeedDown()">
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
