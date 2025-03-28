@@ -1,0 +1,13 @@
+repositories:
+  audio_common:
+    type: git
+    url: https://github.com/knorth55/audio_common.git
+    version: ros2-idl-bugfix
+  rosidl:
+    type: git
+    url: https://github.com/ros2/rosidl.git
+    version: 3.3.1
+  rosidl_python:
+    type: git
+    url: https://github.com/knorth55/rosidl_python.git
+    version: fix-141
