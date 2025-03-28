@@ -1,0 +1,250 @@
+- topic_name: "clock"
+  ros_type_name: "rosgraph_msgs/msg/Clock"
+  gz_type_name: "ignition.msgs.Clock"
+  subscriber_queue: 10       # Default 10
+  publisher_queue: 10        # Default 10
+  lazy: true                # Default "false"
+  direction: GZ_TO_ROS  # Default "BIDIRECTIONAL" - Bridge both directions
+                            # "GZ_TO_ROS" - Bridge Ignition topic to ROS
+                            # "ROS_TO_GZ" - Bridge ROS topic to Ignition
+
+- topic_name: "vehicle1/cmd_vel"
+  ros_type_name: "geometry_msgs/msg/Twist"
+  gz_type_name: "ignition.msgs.Twist"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: ROS_TO_GZ
+
+- topic_name: "vehicle1/odom"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "ignition.msgs.Odometry"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle1/tf"
+  ros_type_name: "tf2_msgs/msg/TFMessage"
+  gz_type_name: "ignition.msgs.Pose_V"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle1/scan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "ignition.msgs.LaserScan"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle1/image_raw"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "ignition.msgs.Image"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+  
+- topic_name: "vehicle2/cmd_vel"
+  ros_type_name: "geometry_msgs/msg/Twist"
+  gz_type_name: "ignition.msgs.Twist"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: ROS_TO_GZ
+
+- topic_name: "vehicle2/odom"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "ignition.msgs.Odometry"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle2/tf"
+  ros_type_name: "tf2_msgs/msg/TFMessage"
+  gz_type_name: "ignition.msgs.Pose_V"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle2/scan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "ignition.msgs.LaserScan"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle2/image_raw"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "ignition.msgs.Image"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+  
+- topic_name: "vehicle3/cmd_vel"
+  ros_type_name: "geometry_msgs/msg/Twist"
+  gz_type_name: "ignition.msgs.Twist"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: ROS_TO_GZ
+
+- topic_name: "vehicle3/odom"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "ignition.msgs.Odometry"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle3/tf"
+  ros_type_name: "tf2_msgs/msg/TFMessage"
+  gz_type_name: "ignition.msgs.Pose_V"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle3/scan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "ignition.msgs.LaserScan"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle3/image_raw"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "ignition.msgs.Image"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+  
+- topic_name: "vehicle4/cmd_vel"
+  ros_type_name: "geometry_msgs/msg/Twist"
+  gz_type_name: "ignition.msgs.Twist"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: ROS_TO_GZ
+
+- topic_name: "vehicle4/odom"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "ignition.msgs.Odometry"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle4/tf"
+  ros_type_name: "tf2_msgs/msg/TFMessage"
+  gz_type_name: "ignition.msgs.Pose_V"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle4/scan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "ignition.msgs.LaserScan"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle4/image_raw"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "ignition.msgs.Image"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+  
+- topic_name: "vehicle5/cmd_vel"
+  ros_type_name: "geometry_msgs/msg/Twist"
+  gz_type_name: "ignition.msgs.Twist"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: ROS_TO_GZ
+
+- topic_name: "vehicle5/odom"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "ignition.msgs.Odometry"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle5/tf"
+  ros_type_name: "tf2_msgs/msg/TFMessage"
+  gz_type_name: "ignition.msgs.Pose_V"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle5/scan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "ignition.msgs.LaserScan"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle5/image_raw"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "ignition.msgs.Image"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+  
+- topic_name: "vehicle6/cmd_vel"
+  ros_type_name: "geometry_msgs/msg/Twist"
+  gz_type_name: "ignition.msgs.Twist"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: ROS_TO_GZ
+
+- topic_name: "vehicle6/odom"
+  ros_type_name: "nav_msgs/msg/Odometry"
+  gz_type_name: "ignition.msgs.Odometry"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle6/tf"
+  ros_type_name: "tf2_msgs/msg/TFMessage"
+  gz_type_name: "ignition.msgs.Pose_V"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle6/scan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "ignition.msgs.LaserScan"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+
+- topic_name: "vehicle6/image_raw"
+  ros_type_name: "sensor_msgs/msg/Image"
+  gz_type_name: "ignition.msgs.Image"
+  subscriber_queue: 10
+  publisher_queue: 10
+  lazy: true
+  direction: GZ_TO_ROS
+  
