@@ -1,0 +1,13 @@
+車体サイズ[m],mitsuba_launch,yaml/nav2_params.yaml,local_costmap/local_costmap global_costmap/global_costmap,footprint footprint
+最大速度[m/s](galactic restart needed),mitsuba_launch,yaml/nav2_params.yaml,controller_server,FollowPath.desired_linear_vel,0.0 2.0
+最大速度[m/s]、最大角速度[rad/s],mitsuba_launch,yaml/nav2_params.yaml,velocity_smoother,max_velocity,0.0 2.0 0.0 0.0 0.0 6.28
+最小速度[m/s]、最小角速度[rad/s],mitsuba_launch,yaml/nav2_params.yaml,velocity_smoother,min_velocity,0.0 -2.0 0.0 0.0 0.0 -6.28
+その場旋回時の角速度[rad/s],mitsuba_launch,yaml/nav2_params.yaml,controller_server,FollowPath.rotate_to_heading_angular_vel,0.0 6.28
+最大加速度[m/s^2]、最大角加速度[rad/s^2],mitsuba_launch,yaml/nav2_params.yaml,velocity_smoother,max_accel,0.1 inf 0.0 0.0 0.1 inf
+最小加速度[m/s^2]、最小角加速度[rad/s^2],mitsuba_launch,yaml/nav2_params.yaml,velocity_smoother,max_decel,-0.1 -inf 0.0 0.0 -0.1 -inf
+停止範囲(x[m] y[m])×n,mitsuba_launch,yaml/nav2_params.yaml,collision_monitor,PolygonStop.points
+減速範囲(x[m] y[m])×n,mitsuba_launch,yaml/nav2_params.yaml,collision_monitor,PolygonSlow.points
+減速倍率[0.0~1.0],mitsuba_launch,yaml/nav2_params.yaml,collision_monitor,PolygonSlow.slowdown_ratio,0.0 1.0
+ゴール時の車体位置の許容距離[m],mitsuba_launch,yaml/nav2_params.yaml,controller_server,general_goal_checker.xy_goal_tolerance,0.0 10.0
+ゴール時の車体角度の許容角度[rad],mitsuba_launch,yaml/nav2_params.yaml,controller_server,general_goal_checker.yaw_goal_tolerance,0.0 6.3
+ゴール手前の減速開始する距離[m],mitsuba_launch,yaml/nav2_params.yaml,controller_server,FollowPath.approach_velocity_scaling_dist,0.0 10.0

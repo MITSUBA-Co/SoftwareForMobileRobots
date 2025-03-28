@@ -1,0 +1,13 @@
+車輪直径[m],mitsuba_launch,yaml/robot_params.yaml,cmd_to_can can_to_odo logging,dia dia dia,0.1 1.0
+トレッド[m],mitsuba_launch,yaml/robot_params.yaml,cmd_to_can can_to_odo logging,tread tread tread,0.1 1.0
+停止時ブレーキデューティ[%],mitsuba_launch,yaml/robot_params.yaml,cmd_to_can,duty_brake,0 108
+減速比,mitsuba_launch,yaml/robot_params.yaml,can_to_odo,reduction_ratio,15 20
+ログ保存,mitsuba_launch,yaml/robot_params.yaml,logging,flg_log
+ゲームパッド最大速度[m/s],mitsuba_launch,yaml/f310.config.yaml,teleop_twist_joy_node,scale_linear.x,0.0 2
+ゲームパッド最大角速度[rad/s],mitsuba_launch,yaml/f310.config.yaml,teleop_twist_joy_node,scale_angular.yaw,0.0 6.28
+ゲームパッド最大速度（ターボ）[m/s],mitsuba_launch,yaml/f310.config.yaml,teleop_twist_joy_node,scale_linear_turbo.x,0.0 2.0
+ゲームパッド最大角速度（ターボ）[rad/s],mitsuba_launch,yaml/f310.config.yaml,teleop_twist_joy_node,scale_angular_turbo.yaw,0.0 6.28
+最大速度[m/s]、最大角速度[rad/s],mitsuba_launch,yaml/velocity_smoother.yaml,velocity_smoother_manual,max_velocity,0.0 2.0 0.0 0.0 0.0 6.28
+最小速度[m/s]、最小角速度[rad/s],mitsuba_launch,yaml/velocity_smoother.yaml,velocity_smoother_manual,min_velocity,0.0 -2.0 0.0 0.0 0.0 -6.28
+最大加速度[m/s^2]、最大角加速度[rad/s^2],mitsuba_launch,yaml/velocity_smoother.yaml,velocity_smoother_manual,max_accel,0.1 inf 0.0 0.0 0.1 inf
+最小加速度[m/s^2]、最小角加速度[rad/s^2],mitsuba_launch,yaml/velocity_smoother.yaml,velocity_smoother_manual,max_decel,-0.1 -inf 0.0 0.0 -0.1 -inf
