@@ -51,8 +51,11 @@
 
 <h1><a href="https://github.com/MITSUBA-Co/SoftwareForMobileRobots/blob/main/Document/%E5%85%8D%E8%B2%AC%E4%BA%8B%E9%A0%85.md">12. 免責事項</a></h1>
 
+<!-- 
 <h1>付録. 移動ロボット用ソフトウェア適用事例 ー配膳ロボットー</a></h1>
 //近日公開予定//
+-->
+
 
 
 
