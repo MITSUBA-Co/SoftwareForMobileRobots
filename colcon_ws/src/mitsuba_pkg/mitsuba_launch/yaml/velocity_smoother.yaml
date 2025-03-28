@@ -1,0 +1,29 @@
+velocity_smoother_manual:
+  ros__parameters:
+    deadband_velocity:
+    - 0.0
+    - 0.0
+    - 0.0
+    feedback: OPEN_LOOP
+    max_accel:
+    - 9999.0
+    - 0.0
+    - 9999.0
+    max_decel:
+    - -9999.0
+    - 0.0
+    - -9999.0
+    max_velocity:
+    - 1.666
+    - 0.0
+    - 3.14
+    min_velocity:
+    - -1.666
+    - 0.0
+    - -3.14
+    odom_duration: 0.1
+    odom_topic: odom
+    scale_velocities: false
+    smoothing_frequency: 20.0
+    use_sim_time: false
+    velocity_timeout: 1.0

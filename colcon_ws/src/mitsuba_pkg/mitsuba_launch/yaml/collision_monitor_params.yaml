@@ -1,0 +1,57 @@
+collision_monitor:
+  ros__parameters:
+    FootprintApproach:
+      action_type: approach
+      footprint_topic: /local_costmap/published_footprint
+      max_points: 5
+      simulation_time_step: 0.1
+      time_before_collision: 2.0
+      type: polygon
+      visualize: false
+    PolygonSlow:
+      action_type: slowdown
+      max_points: 3
+      points:
+      - 1.0
+      - 1.0
+      - 1.0
+      - -1.0
+      - -0.0
+      - -1.0
+      - 0.0
+      - 1.0
+      polygon_pub_topic: polygon_slowdown
+      slowdown_ratio: 0.3
+      type: polygon
+      visualize: true
+    PolygonStop:
+      action_type: stop
+      max_points: 3
+      points:
+      - 0.2
+      - 0.2
+      - 0.2
+      - -0.2
+      - -0.4
+      - -0.2
+      - -0.4
+      - 0.2
+      polygon_pub_topic: polygon_stop
+      type: polygon
+      visualize: true
+    base_frame_id: base_footprint
+    cmd_vel_in_topic: cmd_vel_nav
+    cmd_vel_out_topic: cmd_vel
+    observation_sources:
+    - scan
+    odom_frame_id: odom
+    polygons:
+    - PolygonStop
+    - PolygonSlow
+    scan:
+      topic: /scan
+      type: scan
+    source_timeout: 5.0
+    stop_pub_timeout: 2.0
+    transform_tolerance: 0.5
+    use_sim_time: true

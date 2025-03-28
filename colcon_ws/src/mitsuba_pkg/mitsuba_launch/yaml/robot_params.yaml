@@ -1,0 +1,18 @@
+can_to_odo:
+  ros__parameters:
+    dia: 0.148
+    reduction_ratio: 20.0
+    tread: 0.353
+    use_sim_time: false
+cmd_to_can:
+  ros__parameters:
+    dia: 0.148
+    duty_brake: 70
+    tread: 0.353
+    use_sim_time: false
+logging:
+  ros__parameters:
+    dia: 0.148
+    flg_log: false
+    tread: 0.353
+    use_sim_time: false
