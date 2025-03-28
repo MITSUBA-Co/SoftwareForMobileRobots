@@ -1,0 +1,4 @@
+sample_node:
+  ros__parameters:
+    param1: 0.1
+    param2: 0.2

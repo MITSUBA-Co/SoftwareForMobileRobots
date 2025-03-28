@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+	<model name='vehicle'>
+		<link name='base_footprint'></link>
+
+		<joint name='base_joint' type='fixed'>
+			<parent>base_footprint</parent>
+			<child>base_link</child>
+		</joint>
+
+		<link name='base_link'>
+			<pose>0 0 0 0 0 0</pose>
+		</link>
+
+		<joint name='lidar_joint' type='fixed'>
+			<parent>base_link</parent>
+			<child>base_scan</child>
+		</joint>
+
+		<link name="base_scan">
+			<pose>0.07 0 0.285 0 0 0</pose>
+		</link>
+
+		<joint name='imu_joint' type='fixed'>
+			<parent>base_link</parent>
+			<child>base_imu</child>
+		</joint>
+
+		<link name="base_imu">
+			<pose>0.07 0 0.285 0 0 0</pose>
+		</link>
+
+		<joint name='camera_joint' type='fixed'>
+			<parent>base_link</parent>
+			<child>base_camera</child>
+		</joint>
+
+		<link name="base_camera">
+			<pose>0.07 0 0.35 0 0 0</pose>
+		</link>
+
+	</model>
+
+</sdf>
