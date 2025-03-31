@@ -38,8 +38,7 @@ sample_nodeの受信メッセージおよび送信メッセージを図1に示�
     メッセージ型を以下に示す。  
 ![mitsuba_sample3.png](mitsuba_sample3.png)  
 ### 4. ファイル解説  
-![mitsuba_sample4.png](mitsuba_sample4.png)  
-![mitsuba_sample5.png](mitsuba_sample5.png)  
+![mitsuba_sample4.png](mitsuba_sample4.png)    
 ![mitsuba_sample6.png](mitsuba_sample6.png)  
 ![mitsuba_sample7.png](mitsuba_sample7.png)  
 ![mitsuba_sample8.png](mitsuba_sample8.png)  
