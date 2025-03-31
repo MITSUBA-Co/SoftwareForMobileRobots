@@ -29,11 +29,11 @@ sample_nodeを起動する。同時に、sdfフォルダのmitsuba_sample.sdfの
 /tf_staticをパブリッシュする。さらに、rvizフォルダのmitsuba_sample.rvizの設定を用いてrviz2を立ち上げる。  
 ![mitsuba_sample.png](mitsuba_sample.png)  
 ### 3.1 sample_node  
-    動作確認についてはUbuntu22.04(Humble、amd64)、Ubuntu20.04(Galactic、arm64)で行ったが、他の組み合わせで  
-    も動作すると思われる。  
-    sample_nodeの受信メッセージおよび送信メッセージを図1に示す。  
-    これに加えて、50msと200msのタイマーコールバックを設定してある。  
-    受信メッセージを絞りたい場合は、プログラム中のサブスクライバーの作成をコメントアウトすると良い。  
+動作確認についてはUbuntu22.04(Humble、amd64)、Ubuntu20.04(Galactic、arm64)で行ったが、他の組み合わせで  
+も動作すると思われる。  
+sample_nodeの受信メッセージおよび送信メッセージを図1に示す。  
+これに加えて、50msと200msのタイマーコールバックを設定してある。  
+受信メッセージを絞りたい場合は、プログラム中のサブスクライバーの作成をコメントアウトすると良い。  
 ![mitsuba_sample2.png](mitsuba_sample2.png)  
     メッセージ型を以下に示す。  
 ![mitsuba_sample3.png](mitsuba_sample3.png)  
