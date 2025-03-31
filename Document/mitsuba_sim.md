@@ -13,12 +13,11 @@
 
 * mitsuba_sim.launch.pyを起動した場合（ロボット1台でのシミュレーション環境）  
 ![mitsuba_sim3.png](mitsuba_sim3.png)  
-* mitsuba_sim_multi_N.launch.pyを起動した場合（複数台のロボットでのシミュレーション環境）  
-以下に、複数台のロボットでのシミュレーション環境のブロック図を示す。LaunchファイルはN=1~6まで用意してある。  
-GAZEBOワールドの起動は、1台のロボットでのシミュレーション時と同様であり、ロボットのスポーンにはvehicle1～vehicle6の  
-フォルダ中のrobot_model.sdfを用いる。  
-また、GAZEBOトピックとROS2トピックのブリッジのためのパラメータファイルもbridge_param1.yaml~bridge_param6.yaml  
-を用いるようになっている。  
+* mitsuba_sim_multi_N.launch.pyとmitsuba_guiパッケージのautonom_runノードを起動した場合（複数台のロボットで自律走行を行う場合）  
+    複数台ロボットのシミュレーション環境を立ち上げて、mitsuba_guiパッケージのautorun_runノードを複数起動すること  
+    により、複数台ロボットの自律走行シミュレーションを行うことができる。  
+    autonom_runノードを起動するときに、以下のように引数に『multi_sim』を設定し、さらに、namespaceを指定する必要が  
+    ある。（Nは自律走行させたいロボットの番号） 
 ![mitsuba_sim4.png](mitsuba_sim4.png)  
 * mitsuba_sim_multi_N.launch.pyとmitsuba_guiパッケージのautonom_runノードを起動した場合（複数台のロボットで自律走行を行う場合）  
 複数台ロボットのシミュレーション環境を立ち上げて、mitsuba_guiパッケージのautorun_runノードを複数起動すること  
